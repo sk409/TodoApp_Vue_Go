@@ -7,4 +7,4 @@ RUN go get github.com/jinzhu/gorm github.com/lib/pq \
 
 WORKDIR /go/github.com/sk409/todo
 
-#CMD ["/opt/entrypoint.sh"]
+CMD ["/opt/entrypoint.sh"]
