@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Todos from '../views/Todos.vue'
 import AddTodo from "@/views/AddTodo.vue"
 
 Vue.use(VueRouter)
 
 const routes = [{
     path: '/',
-    name: 'home',
-    component: Home
+    name: 'todos',
+    component: Todos
   },
   {
     path: "/add_todo/",

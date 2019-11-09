@@ -2,6 +2,14 @@ import Model from "./model.js";
 
 export default class Todo extends Model {
 
+    static fetch(params, handler) {
+        Model.fetch(Todo.basePath(), params, handler);
+    }
+
+    static basePath() {
+        return "todos";
+    }
+
     constructor(id = null, title = "", content = "", limit = "") {
         super(id)
         this.title = title;
@@ -10,7 +18,7 @@ export default class Todo extends Model {
     }
 
     basePath() {
-        return "todos"
+        return Todo.basePath();
     }
 
     params() {

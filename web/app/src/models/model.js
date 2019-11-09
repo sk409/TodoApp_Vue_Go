@@ -7,6 +7,27 @@ const origin = "http://localhost:" + serverPortNumber;
 
 export default class Model {
 
+    static fetch(basePath, params, handler) {
+        var url = origin + "/" + basePath;
+        if (params) {
+            url += "?" + Model.query(params);
+        }
+        axios.get(url).then(response => {
+            // TODO: データをセットする
+            if (handler) {
+                handler(response);
+            }
+        });
+    }
+
+    static query(params) {
+        let q = "";
+        for (const key in params) {
+            q += `${key}=${params[key]}&`;
+        }
+        return q;
+    }
+
     constructor(id) {
         this.id = id;
     }
@@ -16,35 +37,22 @@ export default class Model {
         return id ? p + "/" + id : p;
     }
 
-    query() {
-        let q = "";
-        for (const key in this.params()) {
-            q += `${key}=${this.params()[key]}&`;
-        }
-        return q;
-    }
-
     store(handler) {
         const that = this;
         axios.post(this.path(), this.params()).then(response => {
             that.id = response.data.id;
             if (handler) {
-                handler(response)
+                handler(response);
             }
         });
     }
 
-    fetch(handler) {
-        axios.get(this.path() + "?" + this.query()).then(response => {
-            // TODO: データをセットする
+    update(handler) {
+        axios.put(this.path(this.id), this.params()).then(response => {
             if (handler) {
-                handler(response)
+                handler(response);
             }
         });
-    }
-
-    update() {
-        axios.put(this.path(this.id), this.params());
     }
 
     delete() {
